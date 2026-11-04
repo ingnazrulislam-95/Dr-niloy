@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: clinic-manager
+    runtime: docker
+    plan: starter            # persistent disks need a paid plan
+    healthCheckPath: /healthz
+    disk:
+      name: clinic-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: SEED_PASSWORD
+        sync: false           # you type this once in the Render dashboard
+      - key: SEED_DEMO
+        value: "0"            # set to 1 for demo patients on first start
+      - key: COOKIE_SECURE
+        value: "1"
